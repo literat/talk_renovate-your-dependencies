@@ -5,10 +5,11 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "npm run build:site && npm run build:pdf && npm run build:preview",
-    "build:site": "mdx-deck build src/index.mdx",
-    "build:preview": "mdx-deck-export png src/index.mdx",
-    "build:pdf": "mdx-deck-export pdf src/index.mdx",
-    "start": "mdx-deck src/index.mdx"
+    "build:site": "mdx-deck build deck.mdx",
+    "build:preview": "mdx-deck-export png deck.mdx",
+    "build:pdf": "mdx-deck-export pdf deck.mdx",
+    "start": "mdx-deck deck.mdx",
+    "format": "prettier --write '{,!(dist)/**/}*.{js,json,mdx}'"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@mdx-deck/export": "^2.5.1",
     "mdx-deck": "^3.0.13",
+    "prettier": "^1.19.1",
     "rimraf": "^3.0.1"
   }
 }
