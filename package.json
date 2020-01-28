@@ -1,22 +1,24 @@
 {
   "name": "renovate-your-dependencies",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Talk about updating your dependencies automagically",
   "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "npm run build:site && npm run build:pdf && npm run build:preview",
+    "build:site": "mdx-deck build src/index.mdx",
+    "build:preview": "mdx-deck-export png src/index.mdx",
+    "build:pdf": "mdx-deck-export pdf src/index.mdx",
     "start": "mdx-deck src/index.mdx"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/literat/renovate-your-dependencies.git"
   },
-  "author": "",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/literat/renovate-your-dependencies/issues"
-  },
   "homepage": "https://github.com/literat/renovate-your-dependencies#readme",
   "devDependencies": {
-    "mdx-deck": "^3.0.13"
+    "@mdx-deck/export": "^2.5.1",
+    "mdx-deck": "^3.0.13",
+    "rimraf": "^3.0.1"
   }
 }
