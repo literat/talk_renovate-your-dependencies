@@ -1,0 +1,22 @@
+{
+  "name": "renovate-your-dependencies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "mdx-deck src/index.mdx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/literat/renovate-your-dependencies.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/literat/renovate-your-dependencies/issues"
+  },
+  "homepage": "https://github.com/literat/renovate-your-dependencies#readme",
+  "devDependencies": {
+    "mdx-deck": "^3.0.13"
+  }
+}
