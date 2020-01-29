@@ -1,44 +1,106 @@
+import { Notes, Head, Appear, Image } from "mdx-deck";
+import gitHubDependabot from './images/github-dependabot.png'
+import gitHubSecurityAlerts from './images/github-security-alerts.png'
+import openPRs from './images/open-prs.png'
+import prDetail from './images/pr-detail.png'
+import lmcLogo from './images/lmc-logo.png'
+import { default as customTheme } from "./src/theme";
+export const theme = customTheme;
+
+<Head>
+  <title>Renovate Your Dependencis – Tomas Litera</title>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@tomaslitera" />
+  <meta
+    property="og:image"
+    content="http://renovate-your-dependencies.netlify.com/presentation.png"
+  />
+  <meta
+    property="og:title"
+    content="Renovate your dependencies – Tomas Litera"
+  />
+</Head>
+
+<img src={lmcLogo} width="120" />
+
 # Renovate Your Dependencies
 
----
+_by [Tomas Litera](https://litera.me)_
 
-Motivation: automagically solve security updates
-
-DependaBot, GreenKeeper, Snyk
+<Notes>Microphone, screen recording, start timer</Notes>
 
 ---
 
-# Self - hosted
+## Motivation
 
---DependaBot--
---GreenKeeper--
---Snyk--
+Automagically solve security updates
 
 ---
 
-# Security Checks
+## Do you know them?
 
-- Symfony Security Check
-- npm audit
-- yarn audit
+[DependaBot](https://dependabot.com/)
+
+[GreenKeeper](https://greenkeeper.io/)
+
+[Snyk](https://snyk.io/)
 
 ---
 
-# Goal
+<Image src={gitHubDependabot} size="50%" />
+
+---
+
+<Image src={gitHubSecurityAlerts} size="50%" />
+
+---
+
+## Requirments
+
+- Create separate branches and PRs per dependency
+- Solve security updates
+- Self - Hosted
+- Free 😉
+
+---
+
+## Goal
 
 Every dependency update has its separate branch and pull request
 
 - better testing
-- not all patches and minor updates are non-breaking
+- reliable updates: not all patches and minor updates are non-breaking
+
+---
+
+## Security Checks
+
+- Symfony Security Check
+- npm | yarn audit
+- Java ?
+
+---
+
+## Self - hosted
+
+DependaBot: ✅ separate PRs, ✅ security, ❗️ free (GitHub only), ❌ self-hosted
+
+GreenKeeper: ✅ separate PRs, ✅ security, ❌ free, ❌ self-hosted
+
+Snyk: ✅ separate PRs, ✅ security, ❌ free, ❌ self-hosted
+
+---
+
+# 🤔 ❓
 
 ---
 
 # Renovate
 
-- javascript
+- javascript based
 - cli
 - self-hosted solution
-- composer, npm, yarn, docker, maven, etc
+- composer, npm, yarn, docker, maven, etc...
 
 https://renovate.whitesourcesoftware.com/
 
@@ -48,25 +110,149 @@ GitHub: https://github.com/renovatebot/renovate
 
 ---
 
-# Self-hosted
+## Self-hosted
 
-https://github.com/renovatebot/renovate/blob/master/docs/usage/self-hosted-configuration.md
+```javascript
+{
+  platform: 'bitbucket-server',
+  endpoint: '<server-url>',
+  repositories: [
+    '~literat/test-renovate-bot-js',
+  ],
+  enabledManagers: [
+    'npm', 'composer',
+  ],
+```
+---
+
+### Self-Hosted Docs
+
+[Self-Hosted Configuration](https://github.com/renovatebot/renovate/blob/master/docs/usage/self-hosted-configuration.md)
 
 ---
 
-# Configuration
+## Configuration
 
-https://github.com/renovatebot/renovate/blob/master/docs/usage/configuration-options.md
-https://docs.renovatebot.com/configuration-options
+[Configuration Options](https://github.com/renovatebot/renovate/blob/master/docs/usage/configuration-options.md)
+
+Docs: https://docs.renovatebot.com/configuration-options
 
 ---
 
-# Presets
+### Extending configuration
+
+```json
+{
+  "extends": [
+    "config:php-app"
+  ],
+}
+```
+
+---
+
+### PR limit
+
+```json
+{
+  "prConcurrentLimit": 10
+}
+```
+
+---
+
+### Separate branches
+
+```json
+{
+  "rangeStrategy": "update-lockfile",
+}
+```
+
+---
+
+### Ignoring Dependencies
+
+```json
+{
+  "packageRules": [
+    {
+      "packagePatterns": ["^flow"],
+      "enabled": false
+    }
+  ],
+}
+```
+
+---
+
+### Branch prefix
+
+```json
+{
+  "branchPrefix": "dependencies/",
+}
+```
+
+---
+
+### Commit message prefix
+
+```json
+{
+  "commitMessagePrefix": "Deps: ",
+}
+```
+
+---
+
+<Image src={openPRs} size="50%" />
+
+---
+
+<Image src={prDetail} size="50%" />
+
+---
+
+## Presets
 
 https://github.com/renovatebot/presets
 
-default: https://github.com/renovatebot/presets/blob/dda2282e5a53982daea09489d622eedc174243e2/packages/renovate-config-default/package.json
-config: https://github.com/renovatebot/presets/blob/dda2282e5a53982daea09489d622eedc174243e2/packages/renovate-config-config/package.json
+[Default presets](https://github.com/renovatebot/presets/blob/dda2282e5a53982daea09489d622eedc174243e2/packages/renovate-config-default/package.json)
+
+[Config presets](https://github.com/renovatebot/presets/blob/dda2282e5a53982daea09489d622eedc174243e2/packages/renovate-config-config/package.json)
+
+---
+
+```json
+"js-app": {
+  "description": "Default configuration",
+  "extends": [
+    "config:base",
+    ":pinAllExceptPeerDependencies"
+  ]
+},
+```
+
+---
+
+## Problems
+
+😟 😫 😭 😡 🤬 🤯 💩 💥
+
+---
+
+### PHP Composer Satis
+
+Certificates ❓
+
+Authorization ❓
+
+---
+
+### Maven and Gradle
+
+❓ Do you know a Java developer ❓
 
 ---
 
@@ -76,4 +262,26 @@ https://github.com/renovatebot/config-help
 
 ---
 
-# The end
+# Resume
+
+<ul>
+  <Appear>
+    <li> ✅ self-hosted solution </li>
+    <li> ✅ many package managers </li>
+    <li> ✅ sheduled job (Jenkinsfile) </li>
+    <li> ✅ automagically created branches and PRs with updated dependencies </li>
+    <li> ✅ fewer possible security alerts </li>
+    <li> ✅ free </li>
+    <li> ✅ ❌ security checks at all </li>
+  </Appear>
+</ul>
+
+---
+
+# 👋
+
+[renovate-your-dependencies.netlify.com](http://renovate-your-dependencies.netlify.com/)
+
+Created with ❤️ using [mdx-deck](https://mdx-deck.jxnblk.com/)
+
+📺 https://www.youtube.com/watch?v=j-LGtMDYgIQ by [@robinpokorny](https://robinpokorny.com/)
